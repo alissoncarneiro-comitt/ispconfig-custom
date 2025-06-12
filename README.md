@@ -80,6 +80,28 @@ Este projeto fornece uma stack completa e modularizada com:
 ## Instalação
 
 ```bash
+
+
+apt update
+apt update
+apt install -y \
+  zstd lz4 jq net-tools sysstat \
+  htop iotop iftop ncdu \
+  git \
+  auditd libpam-google-authenticator \
+  curl sudo wget gnupg build-essential ca-certificates \
+  git lsb-release \
+  wireguard-tools
+
+
+nano /etc/hosts
+
+IP   DOMAIN   NAME
+
+nano /etc/hostname
+NAME
+
+
 # Clonar com submódulo
 git clone --recursive https://github.com/alissoncarneiro-comitt/ispconfig-custom.git
 cd ispconfig-custom
