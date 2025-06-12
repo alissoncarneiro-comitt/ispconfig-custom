@@ -1,0 +1,22 @@
+server {
+    listen {IP}:80;
+    server_name {DOMAIN};
+    root {DOCROOT};
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        include snippets/security-headers.conf;
+        include snippets/ssl-params.conf;
+        fastcgi_pass unix:/run/php/php{FASTCGI_VERSION}-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    access_log /var/log/ispconfig/http/{DOMAIN}_access.log combined;
+    error_log /var/log/ispconfig/http/{DOMAIN}_error.log error;
+}

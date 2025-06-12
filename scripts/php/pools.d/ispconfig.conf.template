@@ -1,0 +1,33 @@
+[www-${PHP_VERSION}]
+user = www-data
+group = www-data
+
+; Cada versão do PHP escutará em seu próprio socket
+listen = /run/php/php${PHP_VERSION}-fpm.sock
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0660
+
+; Modo de gerenciamento de processos: dynamic é mais eficiente para web
+pm = dynamic
+pm.max_children = ${MAX_CHILDREN}
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = ${MAX_SPARE}
+
+; Diretório base
+chdir = /
+
+; Limita as extensões que podem ser executadas
+security.limit_extensions = .php .phar
+
+; Log de saída dos workers (útil para debug)
+catch_workers_output = yes
+
+; Logs separados para facilitar o debug
+access.log = /var/log/php/php${PHP_VERSION}-fpm-access.log
+slowlog = /var/log/php/php${PHP_VERSION}-fpm-slow.log
+request_slowlog_timeout = 5s
+
+; Tempo máximo de execução por requisição (proteção extra)
+request_terminate_timeout = 60
